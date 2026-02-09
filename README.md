@@ -59,6 +59,7 @@
 
 1. Clone or navigate to the project directory:
 ```bash
+git clone https://github.com/NetsecExplained/OpenScribe.git
 cd OpenScribe
 ```
 
@@ -94,6 +95,11 @@ npm run dev
   sudo apt install git cmake build-essential
   ```
 - Compilation takes 2-5 minutes depending on your system
+- You may also need to manually fix the Chromium sandbox:
+  ```bash
+  sudo chown root ./node_modules/electron/dist/chrome-sandbox
+  sudo chmod 4755 ./node_modules/electron/dist/chrome-sandbox
+  ```
 
 **Mac:**
 - Whisper.cpp will be compiled from source during `npm install`
