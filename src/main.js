@@ -2,6 +2,10 @@
 
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
+const fs = require('fs');
+
+// Resource path utilities
+const { getBinPath, getModelsPath } = require('./resource-path');
 
 // Manager imports
 const TrayManager = require('./tray');
@@ -40,6 +44,21 @@ let macroManager = null;
 function getIconPath() {
   const iconName = process.platform === 'win32' ? 'logo.ico' : 'logo.png';
   return path.join(__dirname, '../public/assets', iconName);
+}
+
+/**
+ * Ensures required directories exist on first run
+ * Creates bin/ and models/ directories if they don't exist
+ */
+function ensureRequiredDirectories() {
+  const directories = [getBinPath(), getModelsPath()];
+
+  for (const dir of directories) {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+      console.log('Created directory:', dir);
+    }
+  }
 }
 
 /**
@@ -97,6 +116,9 @@ function createRecordingPopup() {
 
 // Initialize app
 app.whenReady().then(async () => {
+  // Ensure required directories exist before anything else
+  ensureRequiredDirectories();
+
   createMainWindow();
   createRecordingPopup();
 

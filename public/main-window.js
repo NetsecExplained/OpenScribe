@@ -777,9 +777,7 @@ notesCopyBtn.addEventListener('click', () => {
 
 // Clear textarea
 notesClearBtn.addEventListener('click', () => {
-  if (confirm('Clear all notes?')) {
-    notesTextarea.value = '';
-  }
+  notesTextarea.value = '';
 });
 
 // ===========================================

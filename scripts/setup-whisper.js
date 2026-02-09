@@ -6,6 +6,7 @@ const { execSync } = require('child_process');
 
 const binDir = path.join(__dirname, '..', 'bin');
 const releaseDir = path.join(binDir, 'Release');
+const modelsDir = path.join(__dirname, '..', 'models');
 
 // Detect platform and architecture
 const platform = process.platform; // 'win32', 'darwin', 'linux'
@@ -27,6 +28,10 @@ if (!fs.existsSync(binDir)) {
 }
 if (!fs.existsSync(releaseDir)) {
   fs.mkdirSync(releaseDir, { recursive: true });
+}
+if (!fs.existsSync(modelsDir)) {
+  fs.mkdirSync(modelsDir, { recursive: true });
+  console.log('Created models directory');
 }
 
 // Check if whisper already exists
