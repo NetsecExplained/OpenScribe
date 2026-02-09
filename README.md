@@ -59,7 +59,7 @@
 
 1. Clone or navigate to the project directory:
 ```bash
-cd openscribe
+cd OpenScribe
 ```
 
 2. Install dependencies:
@@ -232,7 +232,7 @@ Insert pre-defined text blocks by voice:
 ## Project Structure
 
 ```
-openscribe/
+OpenScribe/
 ├── src/
 │   ├── main.js                  # Electron main process
 │   ├── preload-main.js          # Main window preload (context bridge)
@@ -312,13 +312,13 @@ If automatic compilation fails during `npm install`, you can compile manually:
    ```
 
 2. Copy the compiled binary:
-   - **Linux**: Copy `build/bin/whisper-cli` to `openscribe/bin/Release/main`
-   - **Mac**: Copy `build/bin/whisper-cli` to `openscribe/bin/Release/main`
+   - **Linux**: Copy `build/bin/whisper-cli` to `OpenScribe/bin/Release/main`
+   - **Mac**: Copy `build/bin/whisper-cli` to `OpenScribe/bin/Release/main`
    - **Windows**: Download from [releases](https://github.com/ggml-org/whisper.cpp/releases)
 
 3. Make it executable (Linux/Mac only):
    ```bash
-   chmod +x openscribe/bin/Release/main
+   chmod +x OpenScribe/bin/Release/main
    ```
 
 ## Known Issues
