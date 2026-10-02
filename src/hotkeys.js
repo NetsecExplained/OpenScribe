@@ -152,7 +152,7 @@ function validateHotkey(hotkeyString) {
  */
 class HotkeyManager {
   /**
-   * @param {string} shortcut - Hotkey string (e.g., "Ctrl+Shift")
+   * @param {string} shortcut - Hotkey string (e.g., "Ctrl+Shift+V")
    * @param {Function} onPress - Callback when hotkey is pressed
    * @param {Function} onRelease - Callback when hotkey is released
    * @param {boolean} [toggleMode=false] - Whether to use toggle mode

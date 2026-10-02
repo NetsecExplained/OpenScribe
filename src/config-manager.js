@@ -18,8 +18,8 @@ const SUPPORTED_LANGUAGES = [
   { code: 'ko', name: 'Korean' }
 ];
 
-/** Default hotkey keycodes (Ctrl+Shift) */
-const DEFAULT_HOTKEY_KEYCODES = [29, 3613, 42, 54]; // CtrlLeft, CtrlRight, ShiftLeft, ShiftRight
+/** Default hotkey keycodes (Ctrl+Shift+V) */
+const DEFAULT_HOTKEY_KEYCODES = [29, 3613, 42, 54, 47]; // CtrlLeft, CtrlRight, ShiftLeft, ShiftRight, V
 
 /**
  * Manages application configuration persistence
@@ -43,7 +43,7 @@ class ConfigManager {
   getDefaults() {
     return {
       hotkey: {
-        displayString: 'Ctrl+Shift',
+        displayString: 'Ctrl+Shift+V',
         keycodes: DEFAULT_HOTKEY_KEYCODES
       },
       toggleMode: false,

@@ -351,6 +351,29 @@
       text-overflow: ellipsis;
     }
 
+    .history-item-text.expanded {
+      white-space: pre-wrap;
+      overflow: visible;
+      word-break: break-word;
+      user-select: text;
+      cursor: text;
+    }
+
+    .history-item-toggle {
+      background: none;
+      border: none;
+      color: inherit;
+      opacity: 0.7;
+      padding: 4px 0 0;
+      font-size: 0.75em;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .history-item-toggle:hover {
+      opacity: 1;
+    }
+
     .history-item-delete {
       position: absolute;
       top: 8px;
@@ -578,7 +601,7 @@
       <img src="assets/logo-long.png" alt="OpenScribe" class="header-logo">
       <div class="status-bar">
         <div class="status-item" id="model-status">Model: None</div>
-        <div class="status-item">Hotkey: <span class="hotkey" id="current-hotkey">Ctrl+Shift</span></div>
+        <div class="status-item">Hotkey: <span class="hotkey" id="current-hotkey">Ctrl+Shift+V</span></div>
         <div class="status-item" id="app-status">Ready</div>
       </div>
     </header>
@@ -598,7 +621,7 @@
           <div class="hotkey-setting">
             <label>Recording Hotkey:</label>
             <div class="hotkey-display-wrapper">
-              <span class="hotkey" id="settings-hotkey">Ctrl+Shift</span>
+              <span class="hotkey" id="settings-hotkey">Ctrl+Shift+V</span>
               <button class="btn-change-hotkey" id="change-hotkey-btn">Change Hotkey</button>
             </div>
           </div>
@@ -834,7 +857,7 @@
           <h3>How to Use</h3>
           <ul class="info-list">
             <li>📥 Download a model to get started</li>
-            <li>🎤 Press and hold your hotkey (default: <span class="hotkey">Ctrl+Shift</span>)</li>
+            <li>🎤 Press and hold your hotkey (default: <span class="hotkey">Ctrl+Shift+V</span>)</li>
             <li>🗣️ Speak your text</li>
             <li>📌 Release to transcribe</li>
             <li>✨ Text auto-pastes into your active application</li>

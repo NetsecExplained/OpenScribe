@@ -478,6 +478,18 @@ window.electronAPI.history.onEnabledUpdated((enabled) => {
 const historyList = document.getElementById('history-list');
 const historySearchInput = document.getElementById('history-search-input');
 const clearHistoryBtn = document.getElementById('clear-history-btn');
+const HISTORY_PREVIEW_LENGTH = 50;
+const expandedHistoryIds = new Set();
+
+// Escape text for safe insertion into HTML content and attributes
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 // Load history
 window.electronAPI.history.onData((history) => {
@@ -509,18 +521,25 @@ function renderHistory(history, filter = '') {
   historyList.innerHTML = filtered.map(entry => {
     const date = new Date(entry.timestamp);
     const timeStr = date.toLocaleString();
-    const preview = entry.text.substring(0, 50) + (entry.text.length > 50 ? '...' : '');
+    const isLong = entry.text.length > HISTORY_PREVIEW_LENGTH;
+    const isExpanded = expandedHistoryIds.has(entry.id);
+    const shownText = isLong && !isExpanded
+      ? entry.text.substring(0, HISTORY_PREVIEW_LENGTH) + '...'
+      : entry.text;
+    const toggleBtn = isLong
+      ? `<button class="history-item-toggle" data-id="${entry.id}">${isExpanded ? 'Show less' : 'Show more'}</button>`
+      : '';
 
     return `
       <div class="history-item"
            data-id="${entry.id}"
-           data-text="${entry.text.replace(/"/g, '&quot;')}"
-           title="${entry.text}">
+           data-text="${escapeHtml(entry.text)}">
         <div class="history-item-header">
           <span class="history-item-time">${timeStr}</span>
           <span class="history-item-meta">${entry.model} | ${entry.language}</span>
         </div>
-        <div class="history-item-text">${preview}</div>
+        <div class="history-item-text${isExpanded ? ' expanded' : ''}">${escapeHtml(shownText)}</div>
+        ${toggleBtn}
         <button class="history-item-delete" data-id="${entry.id}">Delete</button>
       </div>
     `;
@@ -529,10 +548,25 @@ function renderHistory(history, filter = '') {
   // Add click handlers
   document.querySelectorAll('.history-item').forEach(item => {
     item.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('history-item-delete')) {
-        const text = item.dataset.text;
-        window.electronAPI.history.copyFrom(text);
+      if (e.target.closest('button')) return;
+      // Don't copy when the user is selecting text in an expanded entry
+      if (window.getSelection().toString()) return;
+      const text = item.dataset.text;
+      window.electronAPI.history.copyFrom(text);
+    });
+  });
+
+  // Add show more / show less handlers
+  document.querySelectorAll('.history-item-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = parseInt(btn.dataset.id);
+      if (expandedHistoryIds.has(id)) {
+        expandedHistoryIds.delete(id);
+      } else {
+        expandedHistoryIds.add(id);
       }
+      renderHistory(currentHistory, historySearchInput.value);
     });
   });
 

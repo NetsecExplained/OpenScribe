@@ -65,7 +65,7 @@ Output goes to `dist/`. Cross-platform builds have limitations — build on the 
 
 ### Recording
 
-Hold your hotkey (default: `Ctrl+Shift`) and speak. Release to stop — transcribed text is automatically pasted into the active application. You can switch to toggle mode (press once to start, again to stop) in Settings.
+Hold your hotkey (default: `Ctrl+Shift+V`) and speak. Release to stop — transcribed text is automatically pasted into the active application. You can switch to toggle mode (press once to start, again to stop) in Settings.
 
 ### Dictionary & Macros
 
